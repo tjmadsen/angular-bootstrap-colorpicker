@@ -267,6 +267,7 @@ angular.module('colorpicker.module', [])
               position = angular.isDefined(attrs.colorpickerPosition) ? attrs.colorpickerPosition : 'bottom',
               inline = angular.isDefined(attrs.colorpickerInline) ? attrs.colorpickerInline : false,
               fixedPosition = angular.isDefined(attrs.colorpickerFixedPosition) ? attrs.colorpickerFixedPosition : false,
+              parent = angular.isDefined(attrs.colorpickerParent) ? attrs.colorpickerParent : false,
               target = angular.isDefined(attrs.colorpickerParent) ? elem.parent() : angular.element(document.body),
               withInput = angular.isDefined(attrs.colorpickerWithInput) ? attrs.colorpickerWithInput : false,
               inputTemplate = withInput ? '<input type="text" name="colorpicker-input">' : '',
@@ -492,7 +493,7 @@ angular.module('colorpicker.module', [])
             hideColorpickerTemplate();
           };
 
-          if(inline === false) { 
+          if(inline === false || parent) { 
             elem.on('click', function () {
               update();
               colorpickerTemplate
@@ -503,21 +504,10 @@ angular.module('colorpicker.module', [])
               $document.on('mousedown', documentMousedownHandler);
             });
           } else {
-            /*
             update();
             colorpickerTemplate
               .addClass('colorpicker-visible')
               .css(getColorpickerTemplatePosition());
-            */
-            elem.on('click', function () {
-              update();
-              colorpickerTemplate
-                .addClass('colorpicker-visible')
-                .css(getColorpickerTemplatePosition());
-
-              // register global mousedown event to hide the colorpicker
-              $document.on('mousedown', documentMousedownHandler);
-            });
           }
 
           colorpickerTemplate.on('mousedown', function (event) {
