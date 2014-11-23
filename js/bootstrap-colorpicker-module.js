@@ -267,7 +267,7 @@ angular.module('colorpicker.module', [])
               position = angular.isDefined(attrs.colorpickerPosition) ? attrs.colorpickerPosition : 'bottom',
               inline = angular.isDefined(attrs.colorpickerInline) ? attrs.colorpickerInline : false,
               fixedPosition = angular.isDefined(attrs.colorpickerFixedPosition) ? attrs.colorpickerFixedPosition : false,
-              target = angular.isDefined(attrs.colorpickerParent) ? elem.parent() : angular.element(document.body),
+              target = angular.isDefined(attrs.colorpickerParent) ? (angular.isDefined(attrs.colorpickerInline) ? elem.parent().parent() : elem.parent() ) : angular.element(document.body),
               withInput = angular.isDefined(attrs.colorpickerWithInput) ? attrs.colorpickerWithInput : false,
               inputTemplate = withInput ? '<input type="text" name="colorpicker-input">' : '',
               closeButton = !inline ? '<button type="button" class="close close-colorpicker">&times;</button>' : '',
@@ -420,6 +420,11 @@ angular.module('colorpicker.module', [])
 
           var update = function () {
             pickerColor.setColor(elem.val());
+            if(inline){updateComponent(pickerColor.hex());}
+            var newColor = pickerColor[thisFormat]();
+            if (withInput) {
+              pickerColorInput.val(newColor);
+            }
             pickerColorPointers.eq(0).css({
               left: pickerColor.value.s * 100 + 'px',
               top: 100 - pickerColor.value.b * 100 + 'px'
@@ -428,6 +433,23 @@ angular.module('colorpicker.module', [])
             pickerColorPointers.eq(2).css('top', 100 * (1 - pickerColor.value.a) + 'px');
             previewColor();
           };
+          
+          var updateComponent = function(val) {
+                if (target !== false) {
+                    var icn = target.find('i').eq(0);
+                    if (icn.length > 0) {
+                        icn.css({
+                            'backgroundColor': val
+                        });
+                    } else {
+                        this.component.css({
+                            'backgroundColor': val
+                        });
+                    }
+                }
+                return val;
+            };
+            
 
           var getColorpickerTemplatePosition = function() {
             var
