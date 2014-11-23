@@ -360,6 +360,9 @@ angular.module('colorpicker.module', [])
 		      if (inline === 'true') {
 			      colorpickerTemplate.addClass('colorpicker-inline');
 		      }
+          if (parent === 'true') {
+            target.addClass('colorpicker-parent');
+          }
 
           target.append(colorpickerTemplate);
 
@@ -421,7 +424,7 @@ angular.module('colorpicker.module', [])
 
           var update = function () {
             pickerColor.setColor(elem.val());
-            if(inline){updateComponent(pickerColor.hex());}
+            if(parent){updateComponent(pickerColor.hex());}
             var newColor = pickerColor[thisFormat]();
             if (withInput) {
               pickerColorInput.val(newColor);
@@ -493,7 +496,7 @@ angular.module('colorpicker.module', [])
             hideColorpickerTemplate();
           };
 
-          if(inline === false || parent) { 
+          if(inline === false) { 
             elem.on('click', function () {
               update();
               colorpickerTemplate

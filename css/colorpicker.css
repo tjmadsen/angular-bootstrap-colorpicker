@@ -114,6 +114,13 @@ colorpicker-alpha,
   padding: 4px;
   margin-top: 0;
 }
+.colorpicker-parent i{
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      vertical-align: text-top;
+      cursor: pointer;
+}
 .colorpicker-position-top:not(.colorpicker-inline) .dropdown-menu::after {
   border-top: 6px solid #fff;
   border-bottom: 0;
