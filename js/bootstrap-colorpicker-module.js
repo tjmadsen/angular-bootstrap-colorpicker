@@ -425,6 +425,10 @@ angular.module('colorpicker.module', [])
           var update = function () {
             pickerColor.setColor(elem.val());
             if(parent){updateComponent(pickerColor.hex());}
+            var newColor = pickerColor[thisFormat]();
+            if (withInput) {
+              pickerColorInput.val(newColor);
+            }
             pickerColorPointers.eq(0).css({
               left: pickerColor.value.s * 100 + 'px',
               top: 100 - pickerColor.value.b * 100 + 'px'
